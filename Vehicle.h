@@ -5,6 +5,7 @@
 #include "Parts/EnvironmentInteractionPart/EnvironmentInteractionPart.h"
 
 #include <sys/types.h>
+#include <memory>
 #include <string>
 
 class Vehicle
@@ -12,23 +13,23 @@ class Vehicle
     public:
         std::string name;
 
-        Engine * engine;
+        std::unique_ptr<Engine> engine;
 
-        VehicleBody * vehiclebody;
+        std::unique_ptr<VehicleBody> vehiclebody;
 
-        EnvironmentInteractionPart * lowervehiclepart;///Wheels or rotors
+        std::unique_ptr<EnvironmentInteractionPart> lowervehiclepart;///Wheels or rotors
 
         int GetPassagersStorage()
         {
-            if(vehiclebody==nullptr)
+            if(vehiclebody.get()==nullptr)
                 return 0;
-            return vehiclebody->GetPassagersStorage();
+            return vehiclebody.get()->GetPassagersStorage();
         }
 
         float GetVehicleItemStorage()
         {
-            if(vehiclebody==nullptr)
+            if(vehiclebody.get()==nullptr)
                 return 0;
-            return vehiclebody->GetItemsStorage();
+            return vehiclebody.get()->GetItemsStorage();
         }
 };

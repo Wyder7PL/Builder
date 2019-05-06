@@ -13,8 +13,8 @@ Vehicle * VehicleDirector::GetVehicle()
     VehicleBuilder * builder = Builder.get();
     Vehicle * newVehicle = new Vehicle;
     newVehicle->name = builder->GetName();
-    newVehicle->engine = builder->CreateEngine();
-    newVehicle->vehiclebody = builder->CreateVehicleBody();
-    newVehicle->lowervehiclepart = builder->CreateLowerVehiclePart();
+    newVehicle->engine.reset(builder->CreateEngine());
+    newVehicle->vehiclebody.reset(builder->CreateVehicleBody());
+    newVehicle->lowervehiclepart.reset(builder->CreateLowerVehiclePart());
     return newVehicle;
 }
